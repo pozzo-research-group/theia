@@ -1,0 +1,10 @@
+name: theiaenv
+channels:
+  - defaults
+dependencies:
+  - python=3
+  - build
+  - numpy
+  - pandas
+  - pip:
+    - nexusformat

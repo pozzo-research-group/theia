@@ -8,3 +8,6 @@ dependencies:
   - pandas
   - pip:
     - nexusformat
+    - nomad-lab[all]
+    - metainfoyaml2py
+    - structlog

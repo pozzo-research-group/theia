@@ -1,0 +1,2 @@
+nomad-lab[all]
+metainfoyaml2py

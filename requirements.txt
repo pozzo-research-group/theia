@@ -1,2 +1,3 @@
 nomad-lab[all]
 metainfoyaml2py
+nomad-measurements --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple

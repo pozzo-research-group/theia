@@ -16,8 +16,6 @@
 # limitations under the License.
 #
 
-# Example schema from https://github.com/FAIRmat-NFDI/AreaA-Examples/tree/main/tutorial13/part3
-
 from nomad.datamodel.data import EntryData
 from nomad.datamodel.metainfo.basesections import Process
 from nomad.datamodel.metainfo.basesections import ProcessStep
@@ -105,6 +103,7 @@ class Sintering(Process, EntryData, ArchiveSection):
         section_def=TemperatureRamp,
         repeats=True,
     )
+
     data_file = Quantity(
         type=str,
         description='The recipe file for the sintering process.',

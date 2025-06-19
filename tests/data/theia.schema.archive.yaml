@@ -1,0 +1,133 @@
+definitions:
+  name: 'in-line microfluidic SAXS experiment'
+  sections:
+    Nanoparticle:
+      base_sections:
+        - nomad.datamodel.metainfo.eln.ELNSample
+    NanoparticleReference:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.CompositeSystemReference
+      quantities:
+        reference:
+          type: Nanoparticle
+    Precursor:
+      base_sections:
+        - nomad.datamodel.metainfo.eln.ELNSubstance
+    PrecursorReference:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.EntityReference
+      quantities:
+        reference:
+          type: Precursor
+    Precursors:
+      base_sections:
+        - nomad.datamodel.metainfo.eln.ELNCollection
+      quantities:
+        nanoparticle:
+          type: NanoparticleReference
+      sub_sections:
+        entities:
+          repeats: True
+          section: PrecursorReference
+    MicrofluidicPrecursorDevice:
+      base_sections:
+        - nomad.datamodel.metainfo.eln.ELNInstrument
+      quantities:
+        channelLength:
+          type: np.float64
+          unit: 'mm'
+        channelDiameter:
+          type: np.float64
+          unit: 'mm'
+    MicrofluidicPrecursorDeviceReference:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.InstrumentReference
+      quantities:
+        reference:
+          type: MicrofluidicPrecursorDevice
+    PrecursorPretreatment:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.Process
+      quantities:
+        temperature:
+          type: np.float64
+          unit: 'C'
+          shape: ['*']
+        dispensed_volume:
+          type: np.float64
+          unit: 'ml'
+          shape: ['*']
+      sub_sections:
+        instruments:
+          repeats: True
+          section: MicrofluidicPrecursorDevice
+        precursor:
+          repeats: False
+          section: PrecursorReference
+    MicrofluidicMixingDevice:
+      base_sections:
+        - nomad.datamodel.metainfo.eln.ELNInstrument
+      quantities:
+        channelLength:
+          type: np.float64
+          unit: 'mm'
+        channelDiameter:
+          type: np.float64
+          unit: 'mm'
+    MicrofluidicReaction:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.SynthesisMethod
+      quantities:
+        temperature:
+          type: np.float64
+          unit: 'C'
+          shape: ['*']
+      sub_sections:
+        instruments:
+          repeats: True
+          section: MicrofluidicMixingDevice
+    UVVisSpectrometer:
+      base_sections:
+        - nomad_measurements.transmission.schema.Spectrophotometer
+    UVVisSpectrometerReference:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.v1.EntityReference
+      quantities:
+        reference:
+          type: UVVisSpectrometer
+    UVVisNirTransmissionMeasurement:
+      base_sections:
+        - nomad_measurements.transmission.schema.ELNUVVisNirTransmission
+      sub_sections:
+        samples:
+          section: NanoparticleReference
+        instruments:
+          section: UVVisSpectrometerReference
+    SAXSInstrument:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.v1.Instrument
+    SAXSInstrumentReference:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.v1.EntityReference
+      quantities:
+        reference:
+          type: SAXSInstrument
+    SAXSMeasurement:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.v1.Measurement
+    SAXSResults:
+      base_sections:
+        - nomad.datamodel.metainfo.basesections.v1.MeasurementResult
+        - nomad.datamodel.metainfo.plot.PlotSection
+      quantities:
+        intensities:
+          type: np.float64
+          shape: ['*']
+        q:
+          type: np.float64
+          unit: '1 / angstrom'
+          shape: ['*']
+        errors:
+          type: np.float64
+          shape: ['*']
+

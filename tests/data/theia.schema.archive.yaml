@@ -95,6 +95,9 @@ definitions:
       quantities:
         reference:
           type: UVVisSpectrometer
+    UVVisNirResult:
+      base_sections:
+        - nomad_measurements.transmission.schema.UVVisNirTransmissionResult
     UVVisNirTransmissionMeasurement:
       base_sections:
         - nomad_measurements.transmission.schema.ELNUVVisNirTransmission
@@ -103,6 +106,8 @@ definitions:
           section: NanoparticleReference
         instruments:
           section: UVVisSpectrometerReference
+        results:
+          section: UVVisNirResult
     SAXSInstrument:
       base_sections:
         - nomad.datamodel.metainfo.basesections.v1.Instrument
@@ -130,4 +135,12 @@ definitions:
         errors:
           type: np.float64
           shape: ['*']
+    NanoparticleExperiment:
+      base_sections:
+        nomad.datamodel.data.schema
+      sub_sections:
+        UVvis_data:
+          section: UVVisNirResult
+        SAXS_data:
+          section: SAXSResults
 

@@ -10,9 +10,19 @@ if TYPE_CHECKING:
         BoundLogger,
     )
 
+import os
+
+import h5py
 from nomad.config import config
-from nomad.datamodel.metainfo.workflow import Workflow
+
+#from nomad.datamodel.metainfo.workflow import Workflow
 from nomad.parsing.parser import MatchingParser
+
+from nomad_theia_plugin.schema_packages.schema_package import (
+    NanoparticleExperiment,
+    SAXSResults,
+    UVVisNirResult,
+)
 
 configuration = config.get_plugin_entry_point(
     'nomad_theia_plugin.parsers:parser_entry_point'
@@ -27,6 +37,32 @@ class NewParser(MatchingParser):
         logger: 'BoundLogger',
         child_archives: dict[str, 'EntryArchive'] = None,
     ) -> None:
-        logger.info('NewParser.parse', parameter=configuration.parameter)
+        #logger.info('NewParser.parse', parameter=configuration.parameter)
+        logger.info(f' Theia Parser called {mainfile}')
+        #archive.workflow2 = Workflow(name='test')
+        with h5py.File(mainfile, 'r') as f:
+            # Parse UV-Vis data
+            absorbance = f['entry2/data/absorbance'][()]
+            wavelength = f['entry2/data/wavelength'][()]
 
-        archive.workflow2 = Workflow(name='test')
+            uvvis = UVVisNirResult(
+                absorbance=absorbance,
+                wavelength=wavelength
+            )
+
+            # Parse SAXS data
+            intensity = f['processed/result/data'][()]
+            errors = f['processed/result/errors'][()]
+            q = f['processed/result/q'][()]
+
+            saxs = SAXSResults(
+                intensities=intensity,
+                errors=errors,
+                q=q
+            )
+
+            # Assign to archive
+            archive.data = NanoparticleExperiment(
+                UVvis_data=uvvis,
+                SAXS_data=saxs
+            )

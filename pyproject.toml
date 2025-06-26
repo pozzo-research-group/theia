@@ -113,6 +113,7 @@ where = ["src"]
 [project.entry-points.'nomad.plugin']
 parser_entry_point = "nomad_theia_plugin.parsers:parser_entry_point"
 schema_package_entry_point = "nomad_theia_plugin.schema_packages:schema_package_entry_point"
+example_upload_entry_point = "nomad_theia_plugin.example_uploads:example_upload_entry_point"
 
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues

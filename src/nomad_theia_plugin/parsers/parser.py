@@ -42,7 +42,7 @@ class NewParser(MatchingParser):
         #archive.workflow2 = Workflow(name='test')
         with h5py.File(mainfile, 'r') as f:
             # Parse UV-Vis data
-            absorbance = f['entry2/data/absorbance'][()]
+            absorbance = f['entry2/data/intensity'][()]
             wavelength = f['entry2/data/wavelength'][()]
 
             uvvis = UVVisNirResult(
@@ -51,8 +51,8 @@ class NewParser(MatchingParser):
             )
 
             # Parse SAXS data
-            intensity = f['processed/result/data'][()]
-            errors = f['processed/result/errors'][()]
+            intensity = f['processed/result/data'][()].flatten()
+            errors = f['processed/result/errors'][()].flatten()
             q = f['processed/result/q'][()]
 
             saxs = SAXSResults(

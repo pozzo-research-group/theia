@@ -508,16 +508,16 @@ class SAXSResults(MeasurementResult, PlotSection, ArchiveSection):
     m_def = Section()
     intensities = Quantity(
         type=np.float64,
-        shape=["*"],
+        shape=[['*']],
     )
     q = Quantity(
         type=np.float64,
         unit="1 / angstrom",
-        shape=["*"],
+        shape=[['*']],
     )
     errors = Quantity(
         type=np.float64,
-        shape=["*"],
+        shape=[['*']],
     )
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:

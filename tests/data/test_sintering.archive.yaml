@@ -1,3 +1,0 @@
-data:
-  m_def: nomad_theia_plugin.schema_packages.sintering.Sintering
-  data_file: sintering_example.csv

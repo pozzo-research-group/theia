@@ -1,13 +1,17 @@
 name: theiaenv
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3
   - build
   - numpy
   - pandas
+  - h5py
+  - pip
   - pip:
-    - nexusformat
+    - nexpy
+    - git+http://github.com/nexpy/nexusformat.git
     - nomad-lab[all]
     - metainfoyaml2py
     - structlog

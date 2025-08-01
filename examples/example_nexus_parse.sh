@@ -1,0 +1,1 @@
+python3 ../src/nexus_parser/nexus_parse.py Experiment_0_00001_processed.nxs Absorbance__0__16-12-06-829.txt example_saxs_uvvis_nexus.nxs
